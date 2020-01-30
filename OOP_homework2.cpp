@@ -10,10 +10,10 @@ private:
     int price;
     string title;
     string author;
-       
+
 public:
     Book(string _title, string _author, int _price)
-    { 
+    {
         setTitle(_title);
         setAuthor(_author);
         setPrice(_price);
@@ -31,6 +31,7 @@ public:
             if (count > 1) { cout << "Wrong Author!" << "\n"; return false; }
         }
         this->author = author;
+        return true;
     }
     bool setTitle(string title) {
         if (title[0] >= '0' && title[0] <= '9') { cout << "Wrong title!" << "\n"; return false; }
@@ -78,7 +79,7 @@ private:
     string facultyNumber;
     int &Count() {
         static int c = 0;
-        return c; 
+        return c;
     }
 public:
     Student(string _fn, string _ln, string _facnum) : Human(_fn, _ln), facultyNumber(_facnum) { Count()++; }
@@ -98,7 +99,7 @@ private:
         return c;
     }
 public:
-    Worker(string _fn, string _ln, double _ws, double _whpd) : 
+    Worker(string _fn, string _ln, double _ws, double _whpd) :
         Human(_fn, _ln), weekSalary(_ws), workHoursPerDay(_whpd) { Count()++; }
     void setWeekSalary(double _ws) {
         weekSalary = _ws;
@@ -164,12 +165,15 @@ public:
         return tmp;
     }
 
-    
+    void status(){
+        cout << this->getName() << " cards: " << this->printCards() << " cards sum: "<< this->getSum() << endl;
+    }
 private:
     string name;
     vector <string> cards;
-    
+
 };
+
 int main()
 {
   //-------------task 1--------------------------------------------------------------------------------------------------------
@@ -215,7 +219,7 @@ int main()
     Human.addCard(Deck1.getCard());
     cout << Human.getName() << " cards: " << Human.printCards() << endl;
     if (Human.getSum() == 21) {
-        cout << Human.getName() << " has a blackjack!" << " with cards : " << Human.printCards() << endl; 
+        cout << Human.getName() << " has a blackjack!" << " with cards : " << Human.printCards() << endl;
         return 0;
     } else {
         char ans;
@@ -224,7 +228,7 @@ int main()
             cin >> ans;
             if (ans == '1') {
                 Human.addCard(Deck1.getCard());
-                cout << "Human cards: " << Human.printCards() << endl;
+                Human.status();
                 if (Human.getSum() > 21) {
                     cout << "too much :( " << Human.printCards() << Human.getSum();
                     return 0;
@@ -245,20 +249,20 @@ int main()
                 }
                 else if (Human.getSum() == Dealer.getSum()) {
                     cout << "Draw" << endl;
-                    cout << "Dealer cards: " << Dealer.printCards() << Dealer.getSum() << endl;
-                    cout << "Human cards: " << Human.printCards() << Human.getSum() << endl;
+                    Human.status();
+                    Dealer.status();
                     return 0;
                 }
                 else if (Human.getSum() > Dealer.getSum()) {
                     cout << Human.getName() << " winner " << endl;
-                    cout << "Dealer cards: " << Dealer.printCards() << Dealer.getSum() << endl;
-                    cout << "Human cards: " << Human.printCards() << Human.getSum() << endl;
+                    Human.status();
+                    Dealer.status();
                     return 0;
                 }
                 else {
                     cout << Dealer.getName() << " winner " << endl;
-                    cout << "Dealer cards: " << Dealer.printCards() << Dealer.getSum() << endl;
-                    cout << "Human cards: " << Human.printCards() << Human.getSum() << endl;
+                    Human.status();
+                    Dealer.status();
                     return 0;
                 }
             }
